@@ -42,14 +42,13 @@ export const ALERT_TYPE_LABELS: Record<AlertType, string> = {
 };
 
 export const PPE_ITEMS: {
-  key: "helmet" | "safetyShoes" | "gloves" | "uniform" | "safetyVest";
+  key: "helmet" | "vest" | "gloves" | "goggles";
   label: string;
 }[] = [
   { key: "helmet", label: "Helmet" },
-  { key: "safetyShoes", label: "Safety Shoes" },
+  { key: "vest", label: "Safety Vest" },
   { key: "gloves", label: "Gloves" },
-  { key: "uniform", label: "Uniform" },
-  { key: "safetyVest", label: "Safety Vest" },
+  { key: "goggles", label: "Goggles" },
 ];
 
 export const REQUIRED_TOOLS = [
