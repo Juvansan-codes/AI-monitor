@@ -104,3 +104,33 @@ def test_register_creates_worker_and_returns_token(client, db_session):
         json={"email": "newworker@demo.com", "password": "password123"},
     )
     assert login.status_code == 200
+
+
+def test_seed_sets_badge_numbers(db_session):
+    seed_demo_data(db_session)
+    workers = {w.worker_id: w for w in db_session.query(models.Worker).all()}
+    assert workers["W101"].badge_number == "B-2214"
+    assert workers["W102"].badge_number == "B-2217"
+    assert workers["W103"].badge_number == "B-2209"
+
+
+def test_register_and_login_persist_badge_number(client, db_session):
+    res = client.post(
+        "/api/auth/register",
+        json={
+            "email": "badged@demo.com",
+            "password": "password123",
+            "name": "Badge Worker",
+            "role": "worker",
+            "worker_id": "W210",
+            "badge_number": "B-9999",
+        },
+    )
+    assert res.status_code == 200
+    assert res.json()["data"]["user"]["badge_number"] == "B-9999"
+    login = client.post(
+        "/api/auth/login",
+        json={"email": "badged@demo.com", "password": "password123"},
+    )
+    assert login.status_code == 200
+    assert login.json()["data"]["user"]["badge_number"] == "B-9999"
