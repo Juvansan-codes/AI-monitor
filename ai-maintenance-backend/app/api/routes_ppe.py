@@ -22,10 +22,9 @@ video_service = VideoService()
 
 ITEM_LABELS = {
     "helmet": "Helmet",
-    "safety_shoes": "Safety Shoes",
+    "vest": "Safety Vest",
     "gloves": "Gloves",
-    "uniform": "Uniform",
-    "safety_vest": "Safety Vest",
+    "goggles": "Goggles",
 }
 
 
