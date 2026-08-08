@@ -81,6 +81,11 @@ export default function Monitor() {
   const [sop, setSop] = useState<LocalSopState | null>(null);
   const sopRef = useRef<LocalSopState | null>(null);
   const warnedStep = useRef<number | null>(null);
+  // Number of consecutive analysis ticks for the current SOP step. Used by the
+  // demo recognizer so it can show one deviation warning then always verify
+  // (the SOP must never be permanently stuck on a step).
+  const stepAttempt = useRef(0);
+  const attemptedStep = useRef<number | null>(null);
 
   const job = ctx?.job ?? null;
   const worker = ctx?.worker ?? null;
@@ -130,6 +135,12 @@ export default function Monitor() {
     const expected = steps.find((s) => s.stepNumber === current.currentStepNumber);
     if (!expected) return; // all done
 
+    // Track attempts per step so the demo recognizer can recover from a wrong pick.
+    if (attemptedStep.current !== current.currentStepNumber) {
+      attemptedStep.current = current.currentStepNumber;
+      stepAttempt.current = 0;
+    }
+
     const frame = await cameraRef.current?.captureBlob();
     if (!frame) return;
 
@@ -155,8 +166,10 @@ export default function Monitor() {
           expectedActionCode: expected.actionCode,
           expectedLabel: expected.action,
           stepIndex: current.currentStepNumber,
+          stepAttempt: stepAttempt.current,
         });
       }
+      stepAttempt.current += 1;
       const verdict = engine.verify(current.currentStepNumber, action);
 
       const next: LocalSopState = { ...current };

@@ -161,6 +161,7 @@ export default function SupervisorDashboard() {
             <thead>
               <tr className="border-b border-stone-300 text-left text-[10px] tracking-widest text-stone-500 uppercase">
                 <th className="px-3 py-2">Worker</th>
+                <th className="px-3 py-2">Badge</th>
                 <th className="px-3 py-2">Job</th>
                 <th className="px-3 py-2">Status</th>
                 <th className="px-3 py-2">PPE</th>
@@ -189,6 +190,11 @@ export default function SupervisorDashboard() {
                     <td className="px-3 py-2.5">
                       <span className="font-bold text-stone-900">{w.worker.workerId}</span>
                       <span className="block text-[10px] text-stone-500">{w.worker.name}</span>
+                    </td>
+                    <td className="px-3 py-2.5">
+                      <span className="rounded-sm border border-emerald-700/40 bg-emerald-700/10 px-1.5 py-0.5 font-mono text-[10px] font-bold text-emerald-900">
+                        {w.worker.badgeNumber ?? "—"}
+                      </span>
                     </td>
                     <td className="px-3 py-2.5">
                       <span className="text-stone-800">{job?.jobNumber ?? "—"}</span>

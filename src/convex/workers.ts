@@ -34,6 +34,7 @@ export const ensureProfile = mutation({
         await ctx.db.insert("workers", {
           userId,
           workerId: `W${nextNumber}`,
+          badgeNumber: `B-${2200 + nextNumber}`,
           name: user.name ?? `Worker ${nextNumber}`,
           isDemo: false,
           isOnline: true,

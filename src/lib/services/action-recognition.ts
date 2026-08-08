@@ -34,6 +34,8 @@ export interface ActionRecognitionContext {
   expectedActionCode?: string;
   expectedLabel?: string;
   stepIndex?: number;
+  /** how many consecutive ticks the current SOP step has been attempted */
+  stepAttempt?: number;
 }
 
 /**
@@ -83,15 +85,18 @@ class HttpActionRecognitionService implements ActionRecognitionModel {
 }
 
 /**
- * Clearly-labeled simulated recognizer. Mostly reports the expected action;
- * ~18% of the time it reports a plausible wrong action so the SOP deviation
- * warning flow can be exercised. Labeled SIMULATED in the UI.
+ * Clearly-labeled simulated recognizer. Reports the expected action, except
+ * on the FIRST attempt of a step where ~18% of the time it reports a plausible
+ * wrong action so the SOP deviation warning flow can be exercised. Retries of
+ * the same step always verify, so the SOP can always be completed. Labeled
+ * SIMULATED in the UI.
  */
 export function demoRecognize(ctx: ActionRecognitionContext): ActionResult {
-  const seed = `${ctx.workerId}:${ctx.jobId}:${ctx.stepIndex ?? 0}:act`;
+  const attempt = ctx.stepAttempt ?? 0;
+  const seed = `${ctx.workerId}:${ctx.jobId}:${ctx.stepIndex ?? 0}:${attempt}:act`;
   const r = seededRandom(seed);
   let code = ctx.expectedActionCode ?? "open_panel";
-  if (ctx.expectedActionCode && r > 0.82) {
+  if (ctx.expectedActionCode && attempt === 0 && r > 0.82) {
     const others = ACTION_LIBRARY.filter((a) => a !== ctx.expectedActionCode);
     code = others[Math.floor(r * others.length) % others.length];
   }

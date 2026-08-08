@@ -28,13 +28,17 @@ def _linked_identity(db: Session, user: models.User) -> Dict[str, Optional[str]]
     """Resolve the anonymous worker/supervisor id linked to a user account."""
     worker = db.scalar(select(models.Worker).where(models.Worker.user_id == user.id))
     if worker is not None:
-        return {"worker_id": worker.worker_id, "supervisor_id": None}
+        return {
+            "worker_id": worker.worker_id,
+            "badge_number": worker.badge_number,
+            "supervisor_id": None,
+        }
     supervisor = db.scalar(
         select(models.Supervisor).where(models.Supervisor.user_id == user.id)
     )
     if supervisor is not None:
-        return {"worker_id": None, "supervisor_id": supervisor.supervisor_id}
-    return {"worker_id": None, "supervisor_id": None}
+        return {"worker_id": None, "badge_number": None, "supervisor_id": supervisor.supervisor_id}
+    return {"worker_id": None, "badge_number": None, "supervisor_id": None}
 
 
 def _token_response(user: models.User, db: Session) -> dict:
@@ -86,6 +90,7 @@ def register(payload: RegisterRequest, db: Session = Depends(get_db)):
         db.add(
             models.Worker(
                 worker_id=payload.worker_id or f"W{user.id:03d}",
+                badge_number=payload.badge_number,
                 user_id=user.id,
                 name=payload.name,
             )

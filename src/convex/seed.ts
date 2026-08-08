@@ -109,6 +109,7 @@ export const seedDemoData = mutation({
     // --- Workers -------------------------------------------------------------
     const w101 = await ctx.db.insert("workers", {
       workerId: "W101",
+      badgeNumber: "B-2214",
       name: "Alex Chen",
       isDemo: true,
       isOnline: false,
@@ -116,6 +117,7 @@ export const seedDemoData = mutation({
     });
     const w102 = await ctx.db.insert("workers", {
       workerId: "W102",
+      badgeNumber: "B-2217",
       name: "Maya Patel",
       isDemo: true,
       isOnline: true,
@@ -123,6 +125,7 @@ export const seedDemoData = mutation({
     });
     const w103 = await ctx.db.insert("workers", {
       workerId: "W103",
+      badgeNumber: "B-2209",
       name: "Diego Ramirez",
       isDemo: true,
       isOnline: false,

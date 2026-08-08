@@ -106,6 +106,11 @@ export default function WorkerDashboard() {
             <span className="rounded-sm bg-stone-800 px-2 py-0.5 font-mono text-[10px] font-bold tracking-widest text-stone-100">
               {worker.workerId}
             </span>
+            {worker.badgeNumber && (
+              <span className="rounded-sm border border-emerald-700/40 bg-emerald-700/10 px-2 py-0.5 font-mono text-[10px] font-bold tracking-widest text-emerald-900">
+                BADGE {worker.badgeNumber}
+              </span>
+            )}
             {worker.isDemo && <DemoTag />}
           </div>
           <p className="mt-1 font-mono text-xs text-stone-500">

@@ -33,7 +33,7 @@ def _now(**offset) -> datetime:
     return datetime.now(timezone.utc) - timedelta(**offset)
 
 
-def _worker(db: Session, worker_id: str, name: str, email: str) -> models.Worker:
+def _worker(db: Session, worker_id: str, name: str, email: str, badge_number: str) -> models.Worker:
     user = models.User(
         email=email,
         hashed_password=hash_password(DEMO_PASSWORD_WORKER),
@@ -42,7 +42,9 @@ def _worker(db: Session, worker_id: str, name: str, email: str) -> models.Worker
     )
     db.add(user)
     db.flush()
-    worker = models.Worker(worker_id=worker_id, user_id=user.id, name=name)
+    worker = models.Worker(
+        worker_id=worker_id, badge_number=badge_number, user_id=user.id, name=name
+    )
     db.add(worker)
     return worker
 
@@ -165,9 +167,9 @@ def seed_demo_data(db: Session) -> bool:
     logger.info("Seeding demo data (3 workers, 3 SOPs, 3 jobs, GPS, alerts, scores)...")
 
     # --- Workers + linked users ---
-    w101 = _worker(db, "W101", "Maya Patel", "worker@demo.com")
-    w102 = _worker(db, "W102", "Jonas Berg", "worker2@demo.com")
-    w103 = _worker(db, "W103", "Priya Nair", "worker3@demo.com")
+    w101 = _worker(db, "W101", "Maya Patel", "worker@demo.com", "B-2214")
+    w102 = _worker(db, "W102", "Jonas Berg", "worker2@demo.com", "B-2217")
+    w103 = _worker(db, "W103", "Priya Nair", "worker3@demo.com", "B-2209")
 
     supervisor_user = models.User(
         email="supervisor@demo.com",

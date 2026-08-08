@@ -106,6 +106,7 @@ const schema = defineSchema(
     workers: defineTable({
       userId: v.optional(v.id("users")), // linked auth user (null until claimed)
       workerId: v.string(), // anonymous worker id, e.g. "W102"
+      badgeNumber: v.optional(v.string()), // employee badge number, e.g. "B-2214"
       name: v.string(),
       email: v.optional(v.string()),
       isDemo: v.boolean(), // seeded demo data

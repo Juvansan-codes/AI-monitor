@@ -40,6 +40,7 @@ class Worker(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     worker_id: Mapped[str] = mapped_column(String(32), unique=True, index=True)  # anonymous id e.g. W102
+    badge_number: Mapped[str | None] = mapped_column(String(32), nullable=True)  # employee badge, e.g. B-2214
     user_id: Mapped[int | None] = mapped_column(ForeignKey("users.id"), nullable=True)
     name: Mapped[str] = mapped_column(String(255))
     is_online: Mapped[bool] = mapped_column(Boolean, default=False)
