@@ -1,0 +1,1 @@
+Local object-storage fallback directory (dev). Configure S3 to avoid storing media on the app server.

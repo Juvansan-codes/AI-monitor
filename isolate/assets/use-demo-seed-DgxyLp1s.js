@@ -1,0 +1,1 @@
+import{i as o,b as t,a as r}from"./index-D1xG4FOv.js";import{r as u}from"./react-vendor-8CDWN-6r.js";function c(){const e=o(t.seed.seedStatus),s=r(t.seed.seedDemoData);return u.useEffect(()=>{e&&!e.seeded&&s().catch(a=>console.warn("Demo seed failed:",a))},[e,s]),e?.seeded}export{c as u};
