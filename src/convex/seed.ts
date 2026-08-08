@@ -255,10 +255,9 @@ export const seedDemoData = mutation({
     // --- PPE checks ----------------------------------------------------------
     const ppePass = {
       helmet: { detected: true, confidence: 0.96 },
-      safetyShoes: { detected: true, confidence: 0.93 },
+      vest: { detected: true, confidence: 0.9 },
       gloves: { detected: true, confidence: 0.91 },
-      uniform: { detected: true, confidence: 0.95 },
-      safetyVest: { detected: true, confidence: 0.9 },
+      goggles: { detected: true, confidence: 0.95 },
     };
     await ctx.db.insert("ppeChecks", {
       jobId: job1023,

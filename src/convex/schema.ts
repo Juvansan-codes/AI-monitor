@@ -80,10 +80,9 @@ export const detectionItemValidator = v.object({
 
 export const ppeMapValidator = v.object({
   helmet: ppeItemValidator,
-  safetyShoes: ppeItemValidator,
+  vest: ppeItemValidator,
   gloves: ppeItemValidator,
-  uniform: ppeItemValidator,
-  safetyVest: ppeItemValidator,
+  goggles: ppeItemValidator,
 });
 
 const schema = defineSchema(
