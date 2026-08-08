@@ -9,10 +9,9 @@ export interface PpeItem {
 
 export interface PPEMap {
   helmet: PpeItem;
-  safetyShoes: PpeItem;
+  vest: PpeItem;
   gloves: PpeItem;
-  uniform: PpeItem;
-  safetyVest: PpeItem;
+  goggles: PpeItem;
 }
 
 export interface ToolCheck {
