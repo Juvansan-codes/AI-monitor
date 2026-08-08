@@ -33,7 +33,6 @@ services:
       - key: DEBUG
         value: "false"
       - key: CORS_ORIGINS
-        sync: false
         value: '["http://localhost:5173","https://ai-monitor.vercel.app"]'
       - key: PYTHON_VERSION
         value: "3.11.9"
